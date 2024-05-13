@@ -1,0 +1,1 @@
+export const Bot = '6710366730:AAGy7g8GIIfooKpZhdhTCeg0G6i6ZnnjwHk'
