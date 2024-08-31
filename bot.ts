@@ -4,6 +4,8 @@ import { request } from 'https';
 import axios from 'axios'
 
 const bot = new Telegraf(BOT_TOKEN)
+bot.telegram.setWebhook(`https://${process.env.VERCEL_URL}/bot${process.env.BOT_TOKEN}`);
+bot.startWebhook(`/bot${process.env.BOT_TOKEN}`, null, process.env.PORT || 3000);
 const clickApiUrl = 'https://click.ru/api/v6/shorten';
 
 bot.start((ctx) => ctx.reply('Привет! Отправь мне ссылку, и я сокращу её для тебя.'))
