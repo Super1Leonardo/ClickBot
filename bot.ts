@@ -1,9 +1,10 @@
 import { Telegraf } from 'telegraf';
-import { BOT_TOKEN } from '.env'
 import { request } from 'https';
 import axios from 'axios'
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-const bot = new Telegraf(BOT_TOKEN)
+const bot = new Telegraf(process.env.BOT_TOKEN as string)
 const clickApiUrl = 'https://click.ru/api/v6/shorten';
 
 bot.start((ctx) => ctx.reply('Привет! Отправь мне ссылку, и я сокращу её для тебя.'))
