@@ -1,26 +1,29 @@
-import { Telegraf } from 'telegraf';
-import { request } from 'https';
-import axios from 'axios'
-import * as dotenv from 'dotenv';
-dotenv.config();
+import { Telegraf } from 'https://deno.land/x/telegraf@v1.8.0/mod.ts';
 
-const bot = new Telegraf(process.env.BOT_TOKEN as string)
+const botToken = Deno.env.get('BOT_TOKEN');  // Use Deno.env for environment variables
+if (!botToken) {
+  throw new Error('BOT_TOKEN is not defined');
+}
+
+const bot = new Telegraf(botToken);
 const clickApiUrl = 'https://click.ru/api/v6/shorten';
 
-bot.start((ctx) => ctx.reply('Привет! Отправь мне ссылку, и я сокращу её для тебя.'))
+bot.start((ctx) => ctx.reply('Привет! Отправь мне ссылку, и я сокращу её для тебя.'));
 
 bot.on('text', async (ctx) => {
-  const originalUrl = ctx.message.text
+  const originalUrl = ctx.message.text;
   try {
-    const response = await axios.get(`https://clck.ru/--`, { params: { url: originalUrl } })
-    if (response.data) {
-      ctx.reply(`Ваша сокращённая ссылка: ${response.data}`)
+    const response = await fetch(`https://clck.ru/--?url=${originalUrl}`);
+    const shortenedUrl = await response.text();
+    if (shortenedUrl) {
+      ctx.reply(`Ваша сокращённая ссылка: ${shortenedUrl}`);
     } else {
-      ctx.reply('Извините, произошла ошибка при сокращении вашей ссылки.')
+      ctx.reply('Извините, произошла ошибка при сокращении вашей ссылки.');
     }
   } catch (error) {
-    ctx.reply('Извините, произошла ошибка при сокращении вашей ссылки.')
+    console.error(error);
+    ctx.reply('Извините, произошла ошибка при сокращении вашей ссылки.');
   }
-})
+});
 
-bot.launch()
+bot.launch();
