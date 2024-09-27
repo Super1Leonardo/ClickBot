@@ -12,3 +12,7 @@ bot.chatType("private").on("msg:text", async (ctx) => {
     const response = await fetch(endpoint + url)
     await ctx.reply("Твоя ссылка:\n" + await response.text())
 })
+
+bot.command("help", (ctx) => {
+    ctx.reply("No help")
+})

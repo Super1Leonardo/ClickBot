@@ -77,6 +77,11 @@
     "dependencies": [
       "jsr:@std/dotenv@^0.225.2",
       "npm:grammy@^1.30.0"
-    ]
+    ],
+    "packageJson": {
+      "dependencies": [
+        "npm:grammy@^1.30.0"
+      ]
+    }
   }
 }
