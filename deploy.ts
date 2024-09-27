@@ -24,5 +24,5 @@ Deno.serve(async (req) => {
       return new Response("Couldn't succeed with installing webhook");
     }
   }
-  return Response.redirect("https://t.me/Super_Leonardo", 302);
+  return Response.redirect("https://t.me/clickersUse_bot", 302);
 });
